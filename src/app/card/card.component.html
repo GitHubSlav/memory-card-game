@@ -1,0 +1,10 @@
+<div class="card-wrapper">
+    <div class="card" [@flip]="isFlipped ? 'back' : 'front'" (click)="flipCard()">
+        <div class="card-front">
+            <i class="bi bi-question"></i>
+        </div>
+        <div class="card-back">
+            <i class="{{backImage}}"></i>
+        </div>
+    </div> 
+</div>
