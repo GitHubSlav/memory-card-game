@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { flipAnimation } from './card.animations';
 
 @Component ({
@@ -10,9 +10,13 @@ import { flipAnimation } from './card.animations';
 
 export class CardComponent {
     @Input() backImage : string;
-    isFlipped : boolean = false;  
+    @Input() cardNumber : number;
+    @Input() isFlipped : boolean;
+    @Input() isMatched : boolean;
+    
+    @Output() onFlip = new EventEmitter<number>();
 
-    flipCard(){
-        this.isFlipped = !this.isFlipped;
+    Flip(){
+        this.onFlip.emit(this.cardNumber);
     }
 }
