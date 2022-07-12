@@ -19,6 +19,7 @@ export class MemoryGameComponent {
     cards : Card[];
     numOfCards : number = 12;
     numFlipped : number = 0;
+    numMatched : number = 0;
     
     constructor(){
         this.cards = Array<Card>(this.numOfCards);
@@ -35,23 +36,45 @@ export class MemoryGameComponent {
         }
     }
 
+    Restart(){
+        this.numMatched = 0;
+        for (let i = 0; i < this.numOfCards; i += 2){
+            for (let twice = 0; twice < 2; twice++){
+                let randIdx = Math.floor(Math.random() * this.numOfCards);
+                while(!this.cards[randIdx].isMatched){
+                    randIdx = (randIdx + 1) % this.numOfCards;
+                }
+                this.cards[randIdx] = new Card(randIdx, this.images[i/2]);
+            }
+        }
+        console.log(this.cards);
+    }
+
+    Match(){
+        let flippedCards : Card[] = this.cards.filter(element => element.isFlipped);
+
+        setTimeout (() => {
+            this.numFlipped = 0;
+            this.cards[flippedCards[0].num].Flip();
+            this.cards[flippedCards[1].num].Flip();
+
+            if (flippedCards[0].image === flippedCards[1].image){
+                this.numMatched += 2;
+                this.cards[flippedCards[0].num].Match();
+                this.cards[flippedCards[1].num].Match();
+                if (this.numMatched === this.numOfCards){
+                    setTimeout (() => {this.Restart();}, 1000);
+                }
+            }
+            
+        }, 1000);
+    }
+
     onFlip(e : number){
         if (!this.cards[e].isFlipped && this.numFlipped < 2){
             this.cards[e].Flip();
             if (++this.numFlipped == 2){
-                let flippedCards : Card[] = this.cards.filter(element => element.isFlipped);
-                if (flippedCards[0].image === flippedCards[1].image){
-                    setTimeout (() => {
-                        this.numFlipped = 0;
-                        this.cards[flippedCards[0].num].Match();
-                        this.cards[flippedCards[1].num].Match();
-                    }, 1000);
-                }
-                setTimeout (() => {
-                    this.numFlipped = 0;
-                    this.cards[flippedCards[0].num].Flip();
-                    this.cards[flippedCards[1].num].Flip();
-                }, 1000);
+                this.Match();
             }
         }
     }
