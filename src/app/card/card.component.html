@@ -1,5 +1,5 @@
 <div class="card-wrapper">
-    <div class="card" [@flip]="isFlipped ? 'back' : 'front'" (click)="Flip()">
+    <div *ngIf="!isMatched" class="card" [@flip]="isFlipped ? 'back' : 'front'" (click)="Flip()">
         <div class="card-front">
             <i class="bi bi-question"></i>
         </div>

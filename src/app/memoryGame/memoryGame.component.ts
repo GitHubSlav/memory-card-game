@@ -39,11 +39,18 @@ export class MemoryGameComponent {
         if (!this.cards[e].isFlipped && this.numFlipped < 2){
             this.cards[e].Flip();
             if (++this.numFlipped == 2){
+                let flippedCards : Card[] = this.cards.filter(element => element.isFlipped);
+                if (flippedCards[0].image === flippedCards[1].image){
+                    setTimeout (() => {
+                        this.numFlipped = 0;
+                        this.cards[flippedCards[0].num].Match();
+                        this.cards[flippedCards[1].num].Match();
+                    }, 1000);
+                }
                 setTimeout (() => {
                     this.numFlipped = 0;
-                    this.cards.forEach(element => {
-                    if (element.isFlipped) element.Flip();
-                });
+                    this.cards[flippedCards[0].num].Flip();
+                    this.cards[flippedCards[1].num].Flip();
                 }, 1000);
             }
         }
