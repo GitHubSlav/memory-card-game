@@ -1,7 +1,11 @@
 <div class="field">
     <card 
         *ngFor="let card of cards" 
-        [backImage]="card"
+        [backImage]="card.image"
+        [cardNumber]="card.num"
+        [isFlipped]="card.isFlipped"
+        [isMatched]="card.isMatched"
+        (onFlip)="onFlip($event)"
     >
     </card>
 </div>
