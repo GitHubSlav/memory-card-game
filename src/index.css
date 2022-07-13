@@ -3,5 +3,20 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-size: 10px;
+}
+
+html {
+    font-size: 25px;
+}
+
+@media (max-width: 900px) {
+    html {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    html {
+        font-size: 10px;
+    }
 }
