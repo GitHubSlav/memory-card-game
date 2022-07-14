@@ -6,7 +6,15 @@
 
     width: 24rem;
     height: 28rem;
+}
 
-    border: 5px solid #aaa;
-    border-radius: 1rem;
+.game-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40rem;
+    height: 40rem;
+
+    position: relative;
 }

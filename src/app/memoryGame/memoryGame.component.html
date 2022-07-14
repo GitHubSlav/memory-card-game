@@ -1,11 +1,16 @@
-<div class="field">
-    <card 
-        *ngFor="let card of cards" 
-        [backImage]="card.image"
-        [cardNumber]="card.num"
-        [isFlipped]="card.isFlipped"
-        [isMatched]="card.isMatched"
-        (onFlip)="onFlip($event)"
-    >
-    </card>
+<div class="game-wrapper">
+    <div class="field">
+        <card 
+            *ngFor="let card of cards" 
+            [backImage]="card.image"
+            [cardNumber]="card.num"
+            [isFlipped]="card.isFlipped"
+            [isMatched]="card.isMatched"
+            (onFlip)="onFlip($event)"
+        >
+        </card>
+    </div>
+    <game-over-prompt [isVisible]="isGameOver" (OnRestart)="Restart()"></game-over-prompt>
 </div>
+
+

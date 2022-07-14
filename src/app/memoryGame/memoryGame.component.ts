@@ -17,12 +17,17 @@ export class MemoryGameComponent {
         "bi bi-bank"
     ]
     private _cards : Card[];
+    private _isGameOver = false;
     private numOfCards : number = 12;
     private numFlipped : number = 0;
     private numMatched : number = 0;
 
     get cards(){
         return this._cards;
+    }
+
+    get isGameOver(){
+        return this._isGameOver;
     }
     
     constructor(){
@@ -42,6 +47,7 @@ export class MemoryGameComponent {
 
     Restart(){
         this.numMatched = 0;
+        this._isGameOver = false;
         for (let i = 0; i < this.numOfCards; i += 2){
             for (let twice = 0; twice < 2; twice++){
                 let randIdx = Math.floor(Math.random() * this.numOfCards);
@@ -66,7 +72,7 @@ export class MemoryGameComponent {
                 this._cards[flippedCards[0].num].Match();
                 this._cards[flippedCards[1].num].Match();
                 if (this.numMatched === this.numOfCards){
-                    setTimeout (() => {this.Restart();}, 1000);
+                    setTimeout (() => {this._isGameOver = true;}, 100);
                 }
             }
         }, 1000);
