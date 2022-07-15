@@ -1,0 +1,20 @@
+.game-over-prompt {
+    width: 26rem;
+    height: 16rem;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    font-size: 3rem;
+    font-weight: 700;
+    border: 0.2rem solid #aaa;
+    background-color: white;
+    box-shadow: 0rem 0.1rem 0.5rem #aaa;
+    border-radius: 1rem;
+
+    position: absolute;
+    top: 20%;
+    left: 17%;
+}

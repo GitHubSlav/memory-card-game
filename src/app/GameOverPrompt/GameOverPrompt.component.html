@@ -1,0 +1,5 @@
+<div class="game-over-prompt" [@appear]="isVisible ? 'opaque' : 'transparent'">  
+    <div> Game Over </div>
+    <btn text="Another Level" (btnClick)="AnotherLevelClicked()"></btn>
+    <btn text="Play Again" (btnClick)="AgainClicked()"></btn>    
+</div>

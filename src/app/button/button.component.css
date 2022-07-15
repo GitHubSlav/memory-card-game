@@ -1,0 +1,22 @@
+.btn {
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    width: fit-content;
+    padding: 0.25rem 2rem;
+    border: 0.1rem solid #aaa;
+    box-shadow: 0rem 0.1rem 0.5rem #aaa;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.btn:active {
+    box-shadow: 0rem 0.1rem 0.1rem #aaa;
+    transform: translateY(0.1rem);
+}

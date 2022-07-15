@@ -14,19 +14,57 @@ export class MemoryGameComponent {
         "bi bi-arrow-through-heart", 
         "bi bi-balloon", 
         "bi bi-bandaid",
-        "bi bi-bank"
+        "bi bi-bank",
+        "bi bi-bag-heart",
+        "bi bi-bell",
+        "bi bi-bicycle",
+        "bi bi-boombox"
     ]
+    fieldWidth : Record<string, string> = {};
+
     private _cards : Card[];
-    private numOfCards : number = 12;
+    private _isGameOver = false;
+    private _isGameReady = false;
+    private numOfCards : number = 0;
     private numFlipped : number = 0;
     private numMatched : number = 0;
 
     get cards(){
         return this._cards;
     }
-    
-    constructor(){
+
+    get isGameOver(){
+        return this._isGameOver;
+    }
+
+    get isGameReady(){
+        return this._isGameReady;
+    }
+
+    FieldInit(numOfCards : number){
+        this.numOfCards = numOfCards;
+
+        switch(this.numOfCards){
+            case 12 :
+            case 16 : {
+                this.fieldWidth = { "width" : "24rem"};
+                break;
+            }
+            
+            case 20 : {
+                this.fieldWidth = { "width" : "29rem"};
+                break;
+            }
+            
+            default : {
+                console.log("Bruh, you got yourself into default");
+                this.fieldWidth = { "width" : "5rem"};
+                break;
+            }  
+        }
+
         this._cards = Array<Card>(this.numOfCards);
+
         for (let i = 0; i < this.numOfCards; i += 2){
             for (let twice = 0; twice < 2; twice++){
                 let randIdx = Math.floor(Math.random() * this.numOfCards);
@@ -38,10 +76,14 @@ export class MemoryGameComponent {
                 this._cards[randIdx] = new Card(randIdx, this.images[i/2]);
             }
         }
+
+        this._isGameReady = true;
     }
 
     Restart(){
         this.numMatched = 0;
+        this._isGameOver = false;
+
         for (let i = 0; i < this.numOfCards; i += 2){
             for (let twice = 0; twice < 2; twice++){
                 let randIdx = Math.floor(Math.random() * this.numOfCards);
@@ -51,6 +93,15 @@ export class MemoryGameComponent {
                 this._cards[randIdx] = new Card(randIdx, this.images[i/2]);
             }
         }
+    }
+
+    Reset(){
+        this._cards = [];
+        this._isGameOver = false;
+        this._isGameReady = false;
+        this.numOfCards = 0;
+        this.numFlipped = 0;
+        this.numMatched = 0;
     }
 
     Match(){
@@ -66,7 +117,7 @@ export class MemoryGameComponent {
                 this._cards[flippedCards[0].num].Match();
                 this._cards[flippedCards[1].num].Match();
                 if (this.numMatched === this.numOfCards){
-                    setTimeout (() => {this.Restart();}, 1000);
+                    setTimeout (() => {this._isGameOver = true;}, 100);
                 }
             }
         }, 1000);
